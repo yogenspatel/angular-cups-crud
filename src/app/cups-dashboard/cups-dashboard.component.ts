@@ -126,4 +126,7 @@ export class CupsDashboardComponent implements OnInit {
     this.editForm.controls['cupType'].setValue(cupData.type);
     this.editForm.controls['cupAction'].setValue(cupData.action);
   }
+
+  trackByCups(index: number, cup: Cup): number { return cup.id; }
+
 }

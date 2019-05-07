@@ -1,25 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { CupsDashboardComponent } from './cups-dashboard/cups-dashboard.component'
-import { RegisterComponent } from './register/register.component';
-import { AuthGuard } from './guards/auth';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    loadChildren: './login/login.module#LoginModule'
   },
   {
     path: 'register',
-    component: RegisterComponent
+    loadChildren: './register/register.module#RegisterModule'
   },
   {
     path: '',
-    component: CupsDashboardComponent,
-    canActivate: [AuthGuard]
-  },
-  { path: '**', redirectTo: '' }
+    loadChildren: './cups-dashboard/card-dashboard.module#CardDashBoardModule'
+  }
 ];
 
 @NgModule({

@@ -3,7 +3,7 @@
 </div>
 
 <div *ngIf="cupsData">
-  <div *ngFor="let cup of cupsData;">
+  <div *ngFor="let cup of cupsData; trackBy: trackByCups">
     <app-cups-card
       [cupData]="cup"
       (onCupAction)="onCupActionChange($event)"
@@ -50,6 +50,7 @@
 <my-modal id="edit-cup-modal">
   <h2>Edit Cup</h2>
   <div *ngIf="error">{{error}}</div>
+  <h4>ID: {{editId}}</h4>
   <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
     <div class="form-group">
       <label for="cupEditName">Cup Name</label>

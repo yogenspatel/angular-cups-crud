@@ -42,11 +42,11 @@ export class CupsService {
         localStorage.setItem('cups', JSON.stringify(cupsData));
         return of(null);
     }
-    deleteCup(id: number) {
+    deleteCup(id: number): Observable<any> {
         let cupsData = this.getAllCupsData();
         cupsData = cupsData.filter(x => x.id !== id);
         localStorage.setItem('cups', JSON.stringify(cupsData));
-        // return ok();
+        return of(null);
     }
 
 

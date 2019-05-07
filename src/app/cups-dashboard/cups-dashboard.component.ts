@@ -97,6 +97,12 @@ export class CupsDashboardComponent implements OnInit {
       this.closeModal('edit-cup-modal');
     });
   }
+
+  deleteCupData(cupData:Cup) {
+    this.cupsService.deleteCup(cupData.id).subscribe(() => {
+      this.cupsData = this.cupsService.getAllCupsData();
+    });
+  }
   retriveCupDataOnForm(cupData:Cup) {
     this.edit = true;
     this.currentCupData = cupData;

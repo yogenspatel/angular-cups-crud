@@ -98,12 +98,25 @@ export class CupsDashboardComponent implements OnInit {
     });
   }
 
+  onCupActionChange({val, cupData}) {
+    // console.log('On Cup Action Change: ', val, cupData);
+    this.cupsService.editCup({
+      name: cupData.name,
+      type: cupData.type,
+      action: val,
+      id: cupData.id
+    }).subscribe(() => {
+      this.loading = false;
+      this.cupsData = this.cupsService.getAllCupsData();
+    });
+  }
+
   deleteCupData(cupData:Cup) {
     this.cupsService.deleteCup(cupData.id).subscribe(() => {
       this.cupsData = this.cupsService.getAllCupsData();
     });
   }
-  retriveCupDataOnForm(cupData:Cup) {
+  retriveCupDataOnEdit(cupData:Cup) {
     this.edit = true;
     this.currentCupData = cupData;
     this.openModal('edit-cup-modal');
@@ -112,7 +125,5 @@ export class CupsDashboardComponent implements OnInit {
     this.editForm.controls['cupEditName'].setValue(cupData.name);
     this.editForm.controls['cupType'].setValue(cupData.type);
     this.editForm.controls['cupAction'].setValue(cupData.action);
-    // this.cupsService.editCup(cupData);
-    console.log('Edit Cup Data Called: ', cupData);
   }
 }

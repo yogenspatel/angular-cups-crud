@@ -1,3 +1,12 @@
-<p>
-  cups-card works!
-</p>
+Name: {{cupData.name}}
+Type: {{cupData.type}}
+Action: {{cupData.action}}
+<select name="cupActionOnPage" (change)="onCupActionChange($event.target.value, cupData)">
+  <option value="1" [attr.selected]="cupData.action == 1 ? 'selected': null">Empty</option>
+  <option value="2" [attr.selected]="cupData.action == 2 ? 'selected': null">Fill</option>
+  <option value="3" [attr.selected]="cupData.action == 3 ? 'selected': null">Full</option>
+  <option value="4" [attr.selected]="cupData.action == 4 ? 'selected': null">Drink</option>
+  <option value="5" [attr.selected]="cupData.action == 5 ? 'selected': null">Throw</option>
+</select>
+<button (click)="retriveCupDataOnEdit(cupData)">Edit</button>
+<button (click)="deleteCupData(cupData)">Delete</button>

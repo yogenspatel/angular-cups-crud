@@ -3,12 +3,13 @@
 </div>
 
 <div *ngIf="cupsData">
-  <div *ngFor="let cup of cupsData">
-    Name: {{cup.name}}
-    Type: {{cup.type}}
-    Action: {{cup.action}}
-    <button (click)="retriveCupDataOnForm(cup)">Edit</button>
-    <button (click)="deleteCupData(cup)">Delete</button>
+  <div *ngFor="let cup of cupsData;">
+    <app-cups-card
+      [cupData]="cup"
+      (onCupAction)="onCupActionChange($event)"
+      (onRetrieveCupData)="retriveCupDataOnEdit($event)"
+      (onDeleteCupData)="deleteCupData($event)">
+    </app-cups-card>
   </div>
 </div>
 
@@ -59,7 +60,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="cupType">Type</label>
+      <label for="cupType">Type: </label>
       <select formControlName="cupType" [ngClass]="{ 'is-invalid': submitted && formEditFields.cupType.errors }">
         <option value="0" disabled>--Select---</option>
         <option value="1">Coffee</option>
@@ -72,7 +73,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="cupAction">Type</label>
+      <label for="cupAction">Action: </label>
       <select formControlName="cupAction">
         <option value="1">Empty</option>
         <option value="2">Fill</option>

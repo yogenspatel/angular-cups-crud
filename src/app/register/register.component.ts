@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { throwError } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../services/authentication.service';
@@ -10,8 +9,9 @@ import { UserService } from '../services/user.service';
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-  loading = false;
-  submitted = false;
+  loading: boolean = false;
+  submitted: boolean = false;
+  error: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
         },
         error => {
           this.loading = false;
-          return throwError({ error });
+          this.error = error;
         });
   }
 }

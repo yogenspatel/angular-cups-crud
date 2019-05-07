@@ -65,7 +65,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function error(message) {
-            console.log(message);
             return throwError({ error: { message } });
         }
     }

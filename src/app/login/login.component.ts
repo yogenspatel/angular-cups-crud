@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { throwError } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../services/authentication.service';
@@ -13,9 +12,10 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading = false;
-  submitted = false;
+  loading: boolean = false;
+  submitted: boolean = false;
   returnUrl: string;
+  error: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,12 +54,13 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.formFields.username.value, this.formFields.password.value)
       .pipe(first())
       .subscribe(
-        data => {
+        () => {
+          this.loading = false;
           this.router.navigate([this.returnUrl]);
         },
         error => {
           this.loading = false;
-          return throwError({ error });
+          this.error = error;
         });
   }
 }

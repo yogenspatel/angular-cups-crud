@@ -11,13 +11,17 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { fakeBackendProvider } from './helpers/fake-backend';
 import { RegisterComponent } from './register/register.component';
+import { CupsCardComponent } from './cups-card/cups-card.component';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     CupsDashboardComponent,
-    RegisterComponent
+    RegisterComponent,
+    CupsCardComponent,
+    ModalDialogComponent
   ],
   imports: [
     BrowserModule,

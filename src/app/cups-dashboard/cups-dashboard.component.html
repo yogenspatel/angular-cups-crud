@@ -1,18 +1,26 @@
-<div>
-  <button (click)="openModal('add-cup-modal')">Add Cup Data</button>
-</div>
-
-<div *ngIf="cupsData">
-  <div *ngFor="let cup of cupsData; trackBy: trackByCups">
-    <app-cups-card
-      [cupData]="cup"
-      (onCupAction)="onCupActionChange($event)"
-      (onRetrieveCupData)="retriveCupDataOnEdit($event)"
-      (onDeleteCupData)="deleteCupData($event)">
-    </app-cups-card>
+<div class="cup-dashboard mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Cups Info</h2>
   </div>
+  <ul class="mdl-list">
+    <li *ngIf="cupsData" class="cupHeader">
+      <span>Name</span>
+      <span>Type</span>
+      <span>Action</span>
+    </li>
+    <li *ngFor="let cup of cupsData; trackBy: trackByCups" class="mdl-list__item mdl-list__item--three-line">
+      <app-cups-card [cupData]="cup" (onCupAction)="onCupActionChange($event)"
+        (onRetrieveCupData)="retriveCupDataOnEdit($event)" (onDeleteCupData)="deleteCupData($event)">
+      </app-cups-card>
+    </li>
+    <button (click)="openModal('add-cup-modal')"
+      class="add-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--primary">
+      <i class="material-icons">add</i>
+    </button>
+  </ul>
 </div>
 
+<!-- Add Modal -->
 <my-modal id="add-cup-modal">
   <h2>Add Cup</h2>
   <div *ngIf="error">{{error}}</div>
@@ -29,10 +37,9 @@
       <label for="cupType">Type</label>
       <select formControlName="cupType" [ngClass]="{ 'is-invalid': submitted && formAddFields.cupType.errors }">
         <option value="0" disabled>--Select---</option>
-        <option value="1">Coffee</option>
-        <option value="2">Water</option>
-        <option value="3">Green Tea</option>
-        <option value="4">Regular Tea</option>
+        <option *ngFor="let drink of drinkTypeLabels; let i='index'" [value]="i+1">
+          {{drink}}
+        </option>
       </select>
       <div *ngIf="submitted && formAddFields.cupType.errors" class="invalid-feedback">
         <div *ngIf="formAddFields.cupType.errors.required">Must Select Cup Drink Type !</div>
@@ -47,6 +54,7 @@
   <button (click)="closeModal('add-cup-modal');">Close</button>
 </my-modal>
 
+<!-- Edit Modal -->
 <my-modal id="edit-cup-modal">
   <h2>Edit Cup</h2>
   <div *ngIf="error">{{error}}</div>
@@ -64,10 +72,9 @@
       <label for="cupType">Type: </label>
       <select formControlName="cupType" [ngClass]="{ 'is-invalid': submitted && formEditFields.cupType.errors }">
         <option value="0" disabled>--Select---</option>
-        <option value="1">Coffee</option>
-        <option value="2">Water</option>
-        <option value="3">Green Tea</option>
-        <option value="4">Regular Tea</option>
+        <option *ngFor="let drink of drinkTypeLabels; let i='index'" [value]="i+1">
+          {{drink}}
+        </option>
       </select>
       <div *ngIf="submitted && formEditFields.cupType.errors" class="invalid-feedback">
         <div *ngIf="formEditFields.cupType.errors.required">Must Select Cup Drink Type !</div>
@@ -76,17 +83,13 @@
     <div class="form-group">
       <label for="cupAction">Action: </label>
       <select formControlName="cupAction">
-        <option value="1">Empty</option>
-        <option value="2">Fill</option>
-        <option value="3">Full</option>
-        <option value="4">Drink</option>
-        <option value="5">Throw</option>
+        <option *ngFor="let action of cupActionLabels; let i='index'" [value]="i+1">
+          {{action}}
+        </option>
       </select>
     </div>
     <div class="form-group">
       <button [disabled]="loading" class="btn btn-primary">Edit</button>
-      <img *ngIf="loading" class="pl-3"
-        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
     </div>
   </form>
   <button (click)="closeModal('edit-cup-modal');">Close</button>

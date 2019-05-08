@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CupsService } from '../services/cup.service';
 import { ModalService } from '../services/modal.service';
 import { Cup } from '../models/cup';
+import { cupActionLabel, drinkTypeLabel } from '../dataSets/cup-data';
 
 @Component({
   selector: 'app-cups-dashboard',
@@ -21,6 +22,8 @@ export class CupsDashboardComponent implements OnInit {
   edit: boolean = false;
   currentCupData: Cup = null;
   editId: number = 0;
+  cupActionLabels: Array<string> = [];
+  drinkTypeLabels: Array<string> = [];
 
   @ViewChild("cupName") cupNameField: ElementRef;
   @ViewChild("cupName") cupEditName: ElementRef;
@@ -42,6 +45,8 @@ export class CupsDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.cupActionLabels = cupActionLabel;
+    this.drinkTypeLabels = drinkTypeLabel;
     this.addForm = this.formBuilder.group({
       cupName: ['', Validators.required],
       cupType: ['', Validators.required]

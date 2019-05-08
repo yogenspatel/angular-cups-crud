@@ -1,0 +1,13 @@
+.cups {
+    display: flex;
+}
+
+.cups > span:nth-child(2) {
+    display: inline-flex;
+    width: 25%;
+}
+
+.cups > span:nth-child(3) {
+    display: inline-flex;
+    width: 13%;
+}

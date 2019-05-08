@@ -1,0 +1,23 @@
+.cup-dashboard {
+    margin: auto;
+    width: 450px;
+}
+
+.cupHeader > span {
+    font-weight: bold;
+}
+.cupHeader > span:first-child {
+    padding-left: 30px;
+    display: inline-flex;
+    width: 25%;
+}
+
+.cupHeader > span:nth-child(2) {
+    display: inline-flex;
+    width: 13%;
+}
+
+.add-button {
+    float: right;
+    margin-right: 10px;
+}

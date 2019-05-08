@@ -12,7 +12,7 @@ const routes: Routes = [
     path: '',
     component: CupsDashboardComponent,
     canActivate: [AuthGuard]
-  },
+  }
 ];
 
 @NgModule({

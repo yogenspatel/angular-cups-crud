@@ -1,13 +1,17 @@
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
+    <header class="header mdl-layout__header">
+        <div class="headerContainer mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">Drink Management System</span>
+            <span class="mdl-layout-title">Cups Management System</span>
+            <div *ngIf="loggedInAs" class="loggedIn">
+                {{loggedInAs.firstName}} {{loggedInAs.lastName}}
+                <a (click)="logout()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Logout</a>
+            </div>
         </div>
     </header>
-    <div class="mdl-layout__drawer">
+    <!-- <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Title</span>
-    </div>
+    </div> -->
     <main class="mdl-layout__content">
         <router-outlet></router-outlet>
     </main>

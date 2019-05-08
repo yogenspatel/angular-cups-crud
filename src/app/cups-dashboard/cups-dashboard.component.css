@@ -1,6 +1,6 @@
 .cup-dashboard {
     margin: auto;
-    width: 450px;
+    width: 30em;
 }
 
 .cupHeader > span {
@@ -14,7 +14,7 @@
 
 .cupHeader > span:nth-child(2) {
     display: inline-flex;
-    width: 13%;
+    width: 25%;
 }
 
 .add-button {

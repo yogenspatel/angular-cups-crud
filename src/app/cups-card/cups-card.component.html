@@ -1,28 +1,26 @@
 <div class="cups mdl-list__item-primary-content">
-  <i class="material-icons mdl-list__item-avatar">person</i>
-  <span>{{cupData.name}}</span>
-  <span>Type: {{cupData.type}}</span>
+  <i class="material-icons mdl-list__item-avatar">{{drinkTypeLabels[cupData.type - 1]}}</i>
+  <div class="cupName">{{cupData.name}}</div>
+  <div class="drinkType">{{drinkTypeLabels[cupData.type - 1]}}</div>
 
-  <span>
-    <select name="cupActionOnPage" (change)="onCupActionChange($event.target.value, cupData)">
-      <option
-        *ngFor="let action of cupActionLabels; let i='index'"
-        [value]="i+1"
+  <div class="cupAction mdl-textfield">
+    <select class="mdl-textfield__input" name="cupActionOnPage" (change)="onCupActionChange($event.target.value, cupData)">
+      <option *ngFor="let action of cupActionLabels; let i='index'" [value]="i+1"
         [attr.selected]="cupData.action == i+1 ? 'selected': null">
         {{action}}
       </option>
     </select>
-  </span>
-  <span>
+  </div>
+  <div>
     <button (click)="retriveCupDataOnEdit(cupData)"
       class="mdl-button mdl-js-button mdl-button--mini-fab mdl-js-ripple-effect mdl-button--primary">
       <i class="material-icons">edit</i>
     </button>
-  </span>
-  <span>
+  </div>
+  <div>
     <button (click)="deleteCupData(cupData)"
       class="mdl-button mdl-js-button mdl-button--mini-fab mdl-js-ripple-effect mdl-button--primary">
       <i class="material-icons">delete</i>
     </button>
-  </span>
+  </div>
 </div>

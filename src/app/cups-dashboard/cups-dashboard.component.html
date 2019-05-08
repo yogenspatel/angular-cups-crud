@@ -3,7 +3,7 @@
     <h2 class="mdl-card__title-text">Cups Info</h2>
   </div>
   <ul class="mdl-list">
-    <li *ngIf="cupsData" class="cupHeader">
+    <li *ngIf="cupsData && cupsData.length" class="cupHeader">
       <span>Name</span>
       <span>Type</span>
       <span>Action</span>
@@ -22,75 +22,83 @@
 
 <!-- Add Modal -->
 <my-modal id="add-cup-modal">
-  <h2>Add Cup</h2>
-  <div *ngIf="error">{{error}}</div>
-  <form [formGroup]="addForm" (ngSubmit)="onAddSubmit()">
-    <div class="form-group">
-      <label for="cupName">Cup Name</label>
-      <input #cupName type="text" formControlName="cupName" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && formAddFields.cupName.errors }" />
-      <div *ngIf="submitted && formAddFields.cupName.errors" class="invalid-feedback">
-        <div *ngIf="formAddFields.cupName.errors.required">Cup Name is required</div>
+  <h4 class="mdl-dialog__title">Add Cup</h4>
+  <div class="mdl-dialog__content">
+    <div *ngIf="error">{{error}}</div>
+    <form [formGroup]="addForm" (ngSubmit)="onAddSubmit()">
+      <div class="mdl-textfield mdl-js-textfield">
+        <label for="cupName">Cup Name</label>
+        <input #cupName type="text" formControlName="cupName" class="mdl-textfield__input"
+          [ngClass]="{ 'is-invalid': submitted && formAddFields.cupName.errors }" />
+        <span class="mdl-textfield__error"
+          *ngIf="submitted && formAddFields.cupName.errors && formAddFields.cupName.errors.required">Cup Name is
+          required</span>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="cupType">Type</label>
-      <select formControlName="cupType" [ngClass]="{ 'is-invalid': submitted && formAddFields.cupType.errors }">
-        <option value="0" disabled>--Select---</option>
-        <option *ngFor="let drink of drinkTypeLabels; let i='index'" [value]="i+1">
-          {{drink}}
-        </option>
-      </select>
-      <div *ngIf="submitted && formAddFields.cupType.errors" class="invalid-feedback">
-        <div *ngIf="formAddFields.cupType.errors.required">Must Select Cup Drink Type !</div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label for="cupType">Type</label>
+        <select class="mdl-textfield__input" formControlName="cupType"
+          [ngClass]="{ 'is-invalid': submitted && formAddFields.cupType.errors }">
+          <option value="0" disabled>--Select---</option>
+          <option *ngFor="let drink of drinkTypeLabels; let i='index'" [value]="i+1">
+            {{drink}}
+          </option>
+        </select>
+        <span class="mdl-textfield__error"
+          *ngIf="submitted && formAddFields.cupType.errors && formAddFields.cupType.errors.required">Must Select Cup
+          Drink
+          Type !</span>
       </div>
-    </div>
-    <div class="form-group">
-      <button [disabled]="loading" class="btn btn-primary">Add</button>
-      <img *ngIf="loading" class="pl-3"
-        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-    </div>
-  </form>
-  <button (click)="closeModal('add-cup-modal');">Close</button>
+      <button [disabled]="loading" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add</button>
+    </form>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+      (click)="closeModal('add-cup-modal');">Close</button>
+  </div>
 </my-modal>
 
 <!-- Edit Modal -->
 <my-modal id="edit-cup-modal">
-  <h2>Edit Cup</h2>
-  <div *ngIf="error">{{error}}</div>
-  <h4>ID: {{editId}}</h4>
-  <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
-    <div class="form-group">
-      <label for="cupEditName">Cup Name</label>
-      <input #cupEditName type="text" formControlName="cupEditName" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && formEditFields.cupEditName.errors }" />
-      <div *ngIf="submitted && formEditFields.cupEditName.errors" class="invalid-feedback">
-        <div *ngIf="formEditFields.cupEditName.errors.required">Cup Name is required</div>
+  <h4 class="mdl-dialog__title">Edit Cup</h4>
+  <div class="mdl-dialog__content">
+    <div *ngIf="error">{{error}}</div>
+    <h4>ID: {{editId}}</h4>
+    <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
+      <div class="mdl-textfield">
+        <label for="cupEditName">Cup Name</label>
+        <input #cupEditName type="text" formControlName="cupEditName" class="mdl-textfield__input"
+          [ngClass]="{ 'is-invalid': submitted && formEditFields.cupEditName.errors }" />
+        <span class="mdl-textfield__error"
+          *ngIf="submitted && formEditFields.cupEditName.errors && formEditFields.cupEditName.errors.required">Cup Name
+          is
+          required</span>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="cupType">Type: </label>
-      <select formControlName="cupType" [ngClass]="{ 'is-invalid': submitted && formEditFields.cupType.errors }">
-        <option value="0" disabled>--Select---</option>
-        <option *ngFor="let drink of drinkTypeLabels; let i='index'" [value]="i+1">
-          {{drink}}
-        </option>
-      </select>
-      <div *ngIf="submitted && formEditFields.cupType.errors" class="invalid-feedback">
-        <div *ngIf="formEditFields.cupType.errors.required">Must Select Cup Drink Type !</div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label for="cupType">Type: </label>
+        <select class="mdl-textfield__input" formControlName="cupType"
+          [ngClass]="{ 'is-invalid': submitted && formEditFields.cupType.errors }">
+          <option value="0" disabled>--Select---</option>
+          <option *ngFor="let drink of drinkTypeLabels; let i='index'" [value]="i+1">
+            {{drink}}
+          </option>
+        </select>
+        <span class="mdl-textfield__error"
+          *ngIf="submitted && formEditFields.cupType.errors && formEditFields.cupType.errors.required">Must Select Cup
+          Drink Type !</span>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="cupAction">Action: </label>
-      <select formControlName="cupAction">
-        <option *ngFor="let action of cupActionLabels; let i='index'" [value]="i+1">
-          {{action}}
-        </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <button [disabled]="loading" class="btn btn-primary">Edit</button>
-    </div>
-  </form>
-  <button (click)="closeModal('edit-cup-modal');">Close</button>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <label for="cupAction">Action: </label>
+        <select class="mdl-textfield__input" formControlName="cupAction">
+          <option *ngFor="let action of cupActionLabels; let i='index'" [value]="i+1">
+            {{action}}
+          </option>
+        </select>
+      </div>
+      <button [disabled]="loading" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Edit</button>
+    </form>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+      (click)="closeModal('edit-cup-modal');">Close</button>
+  </div>
 </my-modal>

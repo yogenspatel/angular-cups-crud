@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Cup } from '../models/cup';
-import { cupActionLabel } from '../dataSets/cup-data';
+import { cupActionLabel, drinkTypeLabel } from '../dataSets/cup-data';
 
 @Component({
   selector: 'app-cups-card',
@@ -14,10 +14,12 @@ export class CupsCardComponent implements OnInit {
   @Output() onRetrieveCupData = new EventEmitter();
   @Output() onDeleteCupData = new EventEmitter();
   cupActionLabels: Array<string> = [];
+  drinkTypeLabels: Array<string> = [];
   constructor() { }
 
   ngOnInit() {
     this.cupActionLabels = cupActionLabel;
+    this.drinkTypeLabels = drinkTypeLabel;
   }
   
   onCupActionChange(val, cupData:Cup) {

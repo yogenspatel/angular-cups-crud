@@ -1,13 +1,16 @@
 .cups {
     display: flex;
+    flex-direction: row;
 }
 
-.cups > span:nth-child(2) {
-    display: inline-flex;
-    width: 25%;
+.cups .cupName {
+    width: 4em;
 }
 
-.cups > span:nth-child(3) {
-    display: inline-flex;
-    width: 13%;
+.cups .drinkType {
+    width: 7em;
+}
+
+.cupAction {
+    width: 100px;
 }

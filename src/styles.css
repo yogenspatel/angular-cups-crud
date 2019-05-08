@@ -16,7 +16,9 @@ my-modal .my-modal {
 my-modal .my-modal .my-modal-body{
     padding: 20px;
     background: #fff;
-    margin: 40px;
+    width: 400px;
+    margin: auto;
+    margin-top: 5em;
 }
 
 my-modal .my-modal-background {
@@ -31,4 +33,21 @@ my-modal .my-modal-background {
 }
 body.my-modal-open{
     overflow: hidden;
+}
+
+.mdl-textfield__error {
+    visibility: visible;
+}
+
+.header {
+    margin-bottom: 2em;
+}
+
+.headerContainer {
+    justify-content: space-between;
+}
+
+.loggedIn {
+    display: flex;
+    flex-direction: column;
 }

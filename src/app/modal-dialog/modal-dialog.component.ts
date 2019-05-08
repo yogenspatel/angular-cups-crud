@@ -3,13 +3,7 @@ import { ModalService } from '../services/modal.service';
 
 @Component({
     selector: 'my-modal',
-    template: 
-        `<div class="my-modal">
-            <div class="my-modal-body">
-                <ng-content></ng-content>
-            </div>
-        </div>
-        <div class="my-modal-background"></div>`
+    templateUrl: 'modal-dialog.component.html'
 })
 export class ModalDialogComponent implements OnInit, OnDestroy {
     @Input() id: string;

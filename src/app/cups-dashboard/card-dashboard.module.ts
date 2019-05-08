@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CupsDashboardComponent } from './cups-dashboard.component';
 import { CupsCardComponent } from '../cups-card/cups-card.component';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
-import { AuthGuard } from '../guards/auth';
+import { AuthGuard } from '../login/auth.guard';
 
 const routes: Routes = [
   {

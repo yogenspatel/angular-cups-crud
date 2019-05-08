@@ -1,6 +1,7 @@
 {
   "name": "cups-crud-app",
   "version": "0.0.0",
+  "author": "Yogen Patel",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

@@ -8,7 +8,9 @@ This is a proof of concept based on Angular JS which demonstrates CRUD operation
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Checkout Repo using `git clone https://github.com/yogenspatel/angular-cups-crud.git` <br />
+In App directory, execute `npm i` <br />
+Run the App by `ng serve --open` <br />
 
 ## Features
 

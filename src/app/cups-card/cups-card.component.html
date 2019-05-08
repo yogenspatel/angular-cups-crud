@@ -1,10 +1,21 @@
+<!--
+  Child Component of Cups-Dashboard component
+  Responsibilities:
+  Renders Cup component
+    Cup name
+    Drink Type
+    Options to update action on the Cup
+    Ability to Edit selected Cup
+    Ability to Delete selected Cup
+-->
 <div class="cups mdl-list__item-primary-content">
   <i class="material-icons mdl-list__item-avatar">{{drinkTypeLabels[cupData.type - 1]}}</i>
   <div class="cupName">{{cupData.name}}</div>
   <div class="drinkType">{{drinkTypeLabels[cupData.type - 1]}}</div>
 
   <div class="cupAction mdl-textfield">
-    <select class="mdl-textfield__input" name="cupActionOnPage" (change)="onCupActionChange($event.target.value, cupData)">
+    <select class="mdl-textfield__input" name="cupActionOnPage"
+      (change)="onCupActionChange($event.target.value, cupData)">
       <option *ngFor="let action of cupActionLabels; let i='index'" [value]="i+1"
         [attr.selected]="cupData.action == i+1 ? 'selected': null">
         {{action}}

@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Add Form Validators
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -53,9 +54,11 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         () => {
+          // On success, navigate to "/login"
           this.router.navigate(['/login']);
         },
         error => {
+          // On error, set an error
           this.loading = false;
           this.error = error;
         });

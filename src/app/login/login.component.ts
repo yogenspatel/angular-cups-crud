@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Add Form Validators
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -55,10 +56,12 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         () => {
+          // On Success of Login, navigate to "/"
           this.loading = false;
           this.router.navigate([this.returnUrl]);
         },
         error => {
+          // On error, set an error
           this.loading = false;
           this.error = error;
         });

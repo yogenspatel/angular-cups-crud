@@ -45,23 +45,30 @@ export class CupsDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Get cup action labels from the data sets
     this.cupActionLabels = cupActionLabel;
+    // Get drink type labels from the data sets
     this.drinkTypeLabels = drinkTypeLabel;
+    // Add validators for Add form
     this.addForm = this.formBuilder.group({
       cupName: ['', Validators.required],
       cupType: ['', Validators.required]
     });
+    // Add validators for Edit form
     this.editForm = this.formBuilder.group({
       cupEditName: ['', Validators.required],
       cupType: ['', Validators.required],
       cupAction: []
     });
+    // Get latest cup data on init
     this.cupsData = this.cupsService.getAllCupsData();
   }
   
   // convenience getter for easy access to form fields
   get formAddFields() { return this.addForm.controls; }
   get formEditFields() { return this.editForm.controls; }
+
+  // Calls when add form is submitted
   onAddSubmit() {
     this.submitted = true;
 
@@ -77,11 +84,13 @@ export class CupsDashboardComponent implements OnInit {
       action: '1'
     }).subscribe(() => {
       this.loading = false;
+      // Get latest cup data after adding cup data
       this.cupsData = this.cupsService.getAllCupsData();
       this.closeModal('add-cup-modal');
     });
   }
 
+  // Calls when edit form is submitted
   onEditSubmit() {
     this.submitted = true;
 
@@ -98,11 +107,13 @@ export class CupsDashboardComponent implements OnInit {
       id: this.editId
     }).subscribe(() => {
       this.loading = false;
+      // Get latest cup data after editing cup data
       this.cupsData = this.cupsService.getAllCupsData();
       this.closeModal('edit-cup-modal');
     });
   }
 
+  // Calls when action changes on Cup
   onCupActionChange({val, cupData}) {
     // console.log('On Cup Action Change: ', val, cupData);
     this.cupsService.editCup({
@@ -112,15 +123,19 @@ export class CupsDashboardComponent implements OnInit {
       id: cupData.id
     }).subscribe(() => {
       this.loading = false;
+      // Get latest cup data after changing action on cup data
       this.cupsData = this.cupsService.getAllCupsData();
     });
   }
 
+  // Deletes Cup Data on click of Delete button
   deleteCupData(cupData:Cup) {
     this.cupsService.deleteCup(cupData.id).subscribe(() => {
+      // Get latest cup data after deleting cup data
       this.cupsData = this.cupsService.getAllCupsData();
     });
   }
+  // Retrieves data on click of Edit button
   retriveCupDataOnEdit(cupData:Cup) {
     this.edit = true;
     this.currentCupData = cupData;
@@ -132,6 +147,6 @@ export class CupsDashboardComponent implements OnInit {
     this.editForm.controls['cupAction'].setValue(cupData.action);
   }
 
+  // With trackBy, only changing the id triggers element replacement
   trackByCups(index: number, cup: Cup): number { return cup.id; }
-
 }

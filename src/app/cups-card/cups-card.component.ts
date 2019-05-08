@@ -10,8 +10,11 @@ import { cupActionLabel, drinkTypeLabel } from '../dataSets/cup-data';
 export class CupsCardComponent implements OnInit {
 
   @Input() cupData: Cup;
+  // Event Emitter for cup action changes
   @Output() onCupAction = new EventEmitter();
+  // Event emitter for retrieving data on Edit
   @Output() onRetrieveCupData = new EventEmitter();
+  // Event emitter for deleting cup on Delete
   @Output() onDeleteCupData = new EventEmitter();
   cupActionLabels: Array<string> = [];
   drinkTypeLabels: Array<string> = [];

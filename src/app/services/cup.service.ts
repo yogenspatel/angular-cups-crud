@@ -11,12 +11,6 @@ export class CupsService {
         return JSON.parse(localStorage.getItem('cups')) || [];
     }
 
-    getCupById(id: number) {
-        const cup = this.getAllCupsData().find(x => x.id == id);
-        return cup;
-        // return ok(user);
-    }
-
     addCup(cupData): Observable<any> {
         const cupsData = this.getAllCupsData();
         const newCupData: Cup = {
@@ -29,25 +23,19 @@ export class CupsService {
         localStorage.setItem('cups', JSON.stringify(cupsData));
         return of(null);
     }
+
     editCup(cupData: Cup): Observable<any> {
         let cupsData = this.getAllCupsData();
-        // const currentCup = this.getCupById(cupData.id);
-
-        for (var i in cupsData) {
-            if (cupsData[i].id == cupData.id) {
-                cupsData[i] = cupData;
-                break; //Stop this loop, we found it!
-            }
-        }
+        const cupIndex = cupsData.findIndex((cup => cup.id == cupData.id));
+        cupsData[cupIndex] = cupData;
         localStorage.setItem('cups', JSON.stringify(cupsData));
         return of(null);
     }
+    
     deleteCup(id: number): Observable<any> {
         let cupsData = this.getAllCupsData();
-        cupsData = cupsData.filter(x => x.id !== id);
+        cupsData = cupsData.filter(cup => cup.id !== id);
         localStorage.setItem('cups', JSON.stringify(cupsData));
         return of(null);
     }
-
-
 }
